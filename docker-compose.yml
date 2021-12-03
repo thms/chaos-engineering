@@ -1,0 +1,52 @@
+version: '3'
+services:
+
+  qm1:
+    image: ibmcom/mq:latest
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    hostname: qm1
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+    container_name: qm1
+    stdin_open: true
+    tty: true
+    restart: always
+
+  qm2:
+    image: ibmcom/mq:latest
+    ports:
+      - "1415:1414"
+      - "9444:9443"
+    hostname: qm2
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM2
+    container_name: qm2
+    stdin_open: true
+    tty: true
+    restart: always
+
+  # janus:
+  #   container_name: janus
+  #   image: quay.io/hellofresh/janus
+  #   ports:
+  #     - "8080:8080"
+  #     - "8081:8081"
+  #   volumes:
+  #     - ./etc/janus/janus.toml:/etc/janus/janus.toml
+  #     - ./etc/janus/apis:/etc/janus/apis
+  #
+  # logio:
+  #   image: geniousphp/logio
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock
+  #   ports:
+  #     - "28778:28778"
+  #   privileged: true
+  #   environment: #All these env variables are optionals
+  #     - PORT=28778
+  #     - DOCKER_SOCKET=/tmp/docker.sock
+  #     - SHOW_LOG_BY_LABEL=logio
