@@ -16,6 +16,8 @@ https://github.com/ibm-messaging/mq-container/blob/master/docs/developer-config.
 ## Purpose
 Create an event sourcing version of a microservice that is consuming messages from
 The MQ and publishes to Kafka and then reads back from there to update its own internal data store.
+https://eventstore.js.org/
+https://medium.com/@qasimsoomro/building-microservices-using-node-js-with-ddd-cqrs-and-event-sourcing-part-1-of-2-52e0dc3d81df
 
 
 # Components needed
