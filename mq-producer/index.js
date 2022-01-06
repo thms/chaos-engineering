@@ -1,4 +1,4 @@
-use 'strict';
+'use strict';
 
 // MQ Producer: sends a single essage to the MQ server
 // Import the MQ package

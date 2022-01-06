@@ -10,9 +10,13 @@ services:
     environment:
       - LICENSE=accept
       - MQ_QMGR_NAME=QM1
-      - MQ_DEV=true
+      - MQ_DEV=false
       - MQ_APP_PASSWORD=passw0rd
     container_name: qm1
+    volumes:
+      - ./etc/qm1/config.mqsc:/etc/mqm/config.mqsc
+      - ./etc/qm1/mq.htpasswd:/etc/mqm/mq.htpasswd
+      - ./etc/qm1/qm-service-component.ini:/etc/mqm/qm-service-component.ini
     stdin_open: true
     tty: true
     restart: always
@@ -26,9 +30,13 @@ services:
     environment:
       - LICENSE=accept
       - MQ_QMGR_NAME=QM2
-      - MQ_DEV=true
+      - MQ_DEV=false
       - MQ_APP_PASSWORD=passw0rd
     container_name: qm2
+    volumes:
+      - ./etc/qm2/config.mqsc:/etc/mqm/config.mqsc
+      - ./etc/qm2/mq.htpasswd:/etc/mqm/mq.htpasswd
+      - ./etc/qm2/qm-service-component.ini:/etc/mqm/qm-service-component.ini
     stdin_open: true
     tty: true
     restart: always

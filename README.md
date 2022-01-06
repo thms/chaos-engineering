@@ -19,6 +19,12 @@ The MQ and publishes to Kafka and then reads back from there to update its own i
 https://eventstore.js.org/
 https://medium.com/@qasimsoomro/building-microservices-using-node-js-with-ddd-cqrs-and-event-sourcing-part-1-of-2-52e0dc3d81df
 
+# Chaos Engineering
+## Purpose
+Emulate all the typical failures to understand the impact of them and build out detection and healing
+
+Tools to inject specific failures / degradations into the docker environment, like network partitions etc.
+
 
 # Components needed
 Kafka, Zookeeper
@@ -42,10 +48,11 @@ https://livebook.manning.com/book/chaos-engineering/copyright-2020-manning-publi
 
 
 # DOING
-MQ Consumer service
+MQ create queue via config file, so that there is a way to use config files for all the rest
+
 
 # TODO
-MQ create queue via config file
+MQ cluster with native HA - three nodes.
 Kafka Broker
 Consumer publish to Kafka
 Consumer consume from Kafka and update local data store / read model
@@ -54,3 +61,4 @@ Consumer consume from Kafka and update local data store / read model
 MQ producer that can connect and deliver a message to the server
 MQ Container
 MQ UI
+MQ Consumer service - just connect, get message and print
