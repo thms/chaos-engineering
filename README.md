@@ -2,6 +2,8 @@
 Experiment with different aspects of resiliency and chaos engineering
 
 # How to run
+## if using the MQ Explorer grant access to X11 on the host to the docker network
+xhost + 127.0.0.1
 docker-compose up
 
 # MQ
@@ -12,6 +14,7 @@ Access UI via https://localhost:9443/ibmmq/console admin | passw0rd
 https://developer.ibm.com/tutorials/mq-setting-up-using-ibm-mq-console/
 https://github.com/ibm-messaging/mq-container/blob/master/docs/developer-config.md
 
+Success: ability to run in native HA via docker compose
 # Event Sourcing
 ## Purpose
 Create an event sourcing version of a microservice that is consuming messages from
@@ -24,7 +27,10 @@ https://medium.com/@qasimsoomro/building-microservices-using-node-js-with-ddd-cq
 Emulate all the typical failures to understand the impact of them and build out detection and healing
 
 Tools to inject specific failures / degradations into the docker environment, like network partitions etc.
+https://codefresh.io/docker-tutorial/chaos_testing_docker/
 
+## Needs
+Some form of steady state via testing that can be observed and changed via chaos tools.
 
 # Components needed
 Kafka, Zookeeper
@@ -48,11 +54,10 @@ https://livebook.manning.com/book/chaos-engineering/copyright-2020-manning-publi
 
 
 # DOING
-MQ create queue via config file, so that there is a way to use config files for all the rest
+MQ cluster with native HA - three nodes.
 
 
 # TODO
-MQ cluster with native HA - three nodes.
 Kafka Broker
 Consumer publish to Kafka
 Consumer consume from Kafka and update local data store / read model
@@ -62,3 +67,4 @@ MQ producer that can connect and deliver a message to the server
 MQ Container
 MQ UI
 MQ Consumer service - just connect, get message and print
+MQ create queue via config file, so that there is a way to use config files for all the rest
