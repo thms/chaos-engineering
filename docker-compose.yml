@@ -35,12 +35,13 @@ services:
       - MQ_DEV=false
       - MQ_APP_PASSWORD=passw0rd
       - MQ_ADMIN_PASSWORD=passw0rd
-    entrypoint: runmqserver
+    entrypoint: runmqdevserver
     container_name: qm1
     volumes:
-      - qm1data:/mnt/mqm
+#      - qm1data:/mnt/mqm
       - ./etc/qm1/config.mqsc:/etc/mqm/config.mqsc
-      - ./etc/qm1/mq.htpasswd:/etc/mqm/mq.htpasswd
+      - ./etc/qm1/tls.mqsc:/etc/mqm/tls.mqsc
+#      - ./etc/qm1/mq.htpasswd:/etc/mqm/mq.htpasswd
       - ./etc/qm1/qm-service-component.ini:/etc/mqm/qm-service-component.ini
 #      - ./etc/qm1/nativeha.ini:/etc/mqm/nativeha.ini
     stdin_open: true
@@ -65,7 +66,7 @@ services:
     entrypoint: runmqserver
     container_name: qm2
     volumes:
-      - qm2data:/mnt/mqm
+#      - qm2data:/mnt/mqm
       - ./etc/qm2/config.mqsc:/etc/mqm/config.mqsc
       - ./etc/qm2/mq.htpasswd:/etc/mqm/mq.htpasswd
       - ./etc/qm2/qm-service-component.ini:/etc/mqm/qm-service-component.ini
@@ -91,7 +92,7 @@ services:
     entrypoint: runmqserver
     container_name: qm3
     volumes:
-      - qm3data:/mnt/mqm
+#      - qm3data:/mnt/mqm
       - ./etc/qm3/config.mqsc:/etc/mqm/config.mqsc
       - ./etc/qm3/mq.htpasswd:/etc/mqm/mq.htpasswd
       - ./etc/qm3/qm-service-component.ini:/etc/mqm/qm-service-component.ini
