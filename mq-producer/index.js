@@ -6,8 +6,8 @@ var mq = require('ibmmq');
 var MQC = mq.MQC; // Want to refer to this export directly for simplicity
 
 // The queue manager and queue to be used. These can be overridden on command line.
-var qMgr = "QM1";
-var qName = "DEV.QUEUE.1";
+var qMgr = "secureapphelm"; //"QM1";
+var qName = "APPQ"; //"DEV.QUEUE.1";
 var hConn;
 
 
@@ -74,10 +74,19 @@ cno.SecurityParms = csp;
 // And use the MQCD to programatically connect as a client
 // First force the client mode
 cno.Options |= MQC.MQCNO_CLIENT_BINDING;
+
 // And then fill in relevant fields for the MQCD
 var cd = new mq.MQCD();
-cd.ConnectionName = "localhost(1414)";
+cd.ConnectionName = "192.168.64.18(30414)"; //"localhost(1414)";
 cd.ChannelName = "DEV.APP.SVRCONN";
+// With SSL:
+cd.SSLCipherSpec = "TLS_RSA_WITH_AES_128_CBC_SHA256";
+cd.SSLClientAuth = MQC.MQSCA_OPTIONAL;
+var sco = new mq.MQSCO();
+sco.KeyRepository = "/Users/thomasboltze/github/ibm-messaging/mq-helm/samples/genericresources/createcerts/application";
+cno.SSLConfig = sco;
+// END SSL
+
 // Make the MQCNO refer to the MQCD
 cno.ClientConn = cd;
 
@@ -109,22 +118,3 @@ mq.Connx(qMgr, cno, function(err,hConn) {
      });
    }
 });
-
-// Now we can try to connect and discover stuff
-// mq.Connx(qMgr, cno, function(err,conn) {
-//   if (err) {
-//     console.log(formatErr(err));
-//   } else {
-//     console.log("MQCONN to %s successful ", qMgr);
-//     // Sleep for a few seconds - bad in a real program but good for this one
-//     sleep(3 *1000).then(() => {
-//       mq.Disc(conn, function(err) {
-//         if (err) {
-//           console.log(formatErr(err));
-//         } else {
-//           console.log("MQDISC successful");
-//         }
-//       });
-//     });
-//   }
-// });

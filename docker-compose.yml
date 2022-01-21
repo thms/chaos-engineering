@@ -28,22 +28,24 @@ services:
     ports:
       - "1414:1414"
       - "9443:9443"
+      - "9414:9414"
     hostname: qm1
     environment:
       - LICENSE=accept
-      - MQ_QMGR_NAME=QM1
+      - MQ_QMGR_NAME=qm1
       - MQ_DEV=false
       - MQ_APP_PASSWORD=passw0rd
       - MQ_ADMIN_PASSWORD=passw0rd
-    entrypoint: runmqdevserver
+    entrypoint: /bin/bash #runmqdevserver
     container_name: qm1
     volumes:
 #      - qm1data:/mnt/mqm
-      - ./etc/qm1/config.mqsc:/etc/mqm/config.mqsc
-      - ./etc/qm1/tls.mqsc:/etc/mqm/tls.mqsc
-#      - ./etc/qm1/mq.htpasswd:/etc/mqm/mq.htpasswd
-      - ./etc/qm1/qm-service-component.ini:/etc/mqm/qm-service-component.ini
-#      - ./etc/qm1/nativeha.ini:/etc/mqm/nativeha.ini
+#      - ./etc/qm1/config.mqsc:/etc/mqm/config.mqsc
+#      - ./etc/qm1/tls.mqsc:/etc/mqm/tls.mqsc
+#      - ./etc/qm1/qm-service-component.ini:/etc/mqm/qm-service-component.ini
+      - ./etc/qm1/nativeha.ini:/etc/mqm/nativeha.ini
+      - ./etc/qm1/ha:/etc/mqm/ha
+      - ./etc/qm1/pki:/etc/mqm/pki
     stdin_open: true
     tty: true
     restart: always
@@ -63,14 +65,15 @@ services:
       - MQ_DEV=false
       - MQ_APP_PASSWORD=passw0rd
       - MQ_ADMIN_PASSWORD=passw0rd
-    entrypoint: runmqserver
+    entrypoint: runmqdevserver
     container_name: qm2
     volumes:
 #      - qm2data:/mnt/mqm
       - ./etc/qm2/config.mqsc:/etc/mqm/config.mqsc
-      - ./etc/qm2/mq.htpasswd:/etc/mqm/mq.htpasswd
+      - ./etc/qm1/tls.mqsc:/etc/mqm/tls.mqsc
+#      - ./etc/qm2/mq.htpasswd:/etc/mqm/mq.htpasswd
       - ./etc/qm2/qm-service-component.ini:/etc/mqm/qm-service-component.ini
-      - ./etc/qm2/nativeha.ini:/etc/mqm/nativeha.ini
+#      - ./etc/qm2/nativeha.ini:/etc/mqm/nativeha.ini
     stdin_open: true
     tty: true
     restart: always
@@ -89,14 +92,15 @@ services:
       - MQ_QMGR_NAME=QM3
       - MQ_DEV=false
       - MQ_APP_PASSWORD=passw0rd
-    entrypoint: runmqserver
+    entrypoint: runmqdevserver
     container_name: qm3
     volumes:
 #      - qm3data:/mnt/mqm
       - ./etc/qm3/config.mqsc:/etc/mqm/config.mqsc
-      - ./etc/qm3/mq.htpasswd:/etc/mqm/mq.htpasswd
+      - ./etc/qm1/tls.mqsc:/etc/mqm/tls.mqsc
+#      - ./etc/qm3/mq.htpasswd:/etc/mqm/mq.htpasswd
       - ./etc/qm3/qm-service-component.ini:/etc/mqm/qm-service-component.ini
-      - ./etc/qm3/nativeha.ini:/etc/mqm/nativeha.ini
+#      - ./etc/qm3/nativeha.ini:/etc/mqm/nativeha.ini
     stdin_open: true
     tty: true
     restart: always

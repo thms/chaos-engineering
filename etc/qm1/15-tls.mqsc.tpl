@@ -14,6 +14,6 @@
 * limitations under the License.
 
 * Set the keystore location for the queue manager
-ALTER QMGR SSLKEYR('/run/runmqserver/tls/key')
-ALTER QMGR CERTLABL('')
+ALTER QMGR SSLKEYR('{{ .SSLKeyR }}')
+ALTER QMGR CERTLABL('{{ .CertificateLabel }}')
 REFRESH SECURITY(*) TYPE(SSL)
