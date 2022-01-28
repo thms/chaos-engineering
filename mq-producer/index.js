@@ -22,9 +22,12 @@ function toHexString(byteArray) {
 }
 
 // Define some functions that will be used from the main flow
-function putMessage(hObj) {
+function putMessage(hObj, index=0) {
 
-  var msg = "Hello from Node at " + new Date();
+  var msg = "Hello from Node at " + new Date() + " " + index;
+  // create much longer messages to see the impact on performance
+  msg = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
 
   var mqmd = new mq.MQMD(); // Defaults are fine.
   var pmo = new mq.MQPMO();
@@ -34,12 +37,12 @@ function putMessage(hObj) {
                 MQC.MQPMO_NEW_MSG_ID |
                 MQC.MQPMO_NEW_CORREL_ID;
 
-  mq.Put(hObj,mqmd,pmo,msg,function(err) {
+  mq.PutSync(hObj,mqmd,pmo,msg,function(err) {
     if (err) {
       console.log(formatErr(err));
     } else {
-      console.log("MsgId: " + toHexString(mqmd.MsgId));
-      console.log("MQPUT successful");
+      //console.log("MsgId: " + toHexString(mqmd.MsgId));
+      //console.log("MQPUT successful");
     }
   });
 }
@@ -77,13 +80,13 @@ cno.Options |= MQC.MQCNO_CLIENT_BINDING;
 
 // And then fill in relevant fields for the MQCD
 var cd = new mq.MQCD();
-cd.ConnectionName = "192.168.64.18(30414)"; //"localhost(1414)";
+cd.ConnectionName = "192.168.64.28(32656)";
 cd.ChannelName = "DEV.APP.SVRCONN";
 // With SSL:
 cd.SSLCipherSpec = "TLS_RSA_WITH_AES_128_CBC_SHA256";
 cd.SSLClientAuth = MQC.MQSCA_OPTIONAL;
 var sco = new mq.MQSCO();
-sco.KeyRepository = "/Users/thomasboltze/github/ibm-messaging/mq-helm/samples/genericresources/createcerts/application";
+sco.KeyRepository = "../mq-qmgr/certs/application";
 cno.SSLConfig = sco;
 // END SSL
 
@@ -112,7 +115,12 @@ mq.Connx(qMgr, cno, function(err,hConn) {
          console.log(formatErr(err));
        } else {
          console.log("MQOPEN of %s successful",qName);
-         putMessage(hObj);
+         var before = new Date();
+         for (let i = 0; i < 1000; i++) {
+           putMessage(hObj, i);
+         }
+         var after = new Date();
+         console.log("Time elapsed %f", (after.getTime() - before.getTime()) / 1000);
        }
        cleanup(hConn,hObj);
      });

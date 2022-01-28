@@ -1,0 +1,23 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-partition
+spec:
+  action: partition # the specific chaos action to inject
+  mode: one # the mode to run chaos action; supported modes are one/all/fixed/fixed-percent/random-max-percent
+  selector: # pods where to inject chaos actions
+    namespaces:
+      - default
+    labelSelectors:
+      'statefulset.kubernetes.io/pod-name': 'secureapphelm-ibm-mq-0'
+  duration: '10m'
+  direction: to
+  target:
+    mode: all
+    selector:
+      namespaces:
+        - default
+      pods:
+        default: # namespace of the pods
+          - secureapphelm-ibm-mq-1
+          - secureapphelm-ibm-mq-2

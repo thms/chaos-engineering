@@ -1,0 +1,25 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-delay
+spec:
+  action: delay # the specific chaos action to inject
+  mode: all # the mode to run chaos action; supported modes are one/all/fixed/fixed-percent/random-max-percent
+  selector: # pods where to inject chaos actions
+    namespaces:
+      - default
+    labelSelectors:
+      'statefulset.kubernetes.io/pod-name': 'secureapphelm-ibm-mq-1'
+  delay:
+    latency: '20ms'
+  duration: '10m'
+  direction: both # latency is the same in both directions
+  target:
+    mode: all # all: network traffic in both directions is delayed
+    selector:
+      namespaces:
+        - default
+      pods:
+        default: # namespace of the pods
+          - secureapphelm-ibm-mq-0
+          - secureapphelm-ibm-mq-2

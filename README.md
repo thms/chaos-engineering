@@ -52,6 +52,13 @@ https://codefresh.io/docker-tutorial/chaos_testing_docker/
 https://github.com/alexei-led/pumba
 https://livebook.manning.com/book/chaos-engineering/copyright-2020-manning-publications/v-5/
 
+# To get a shell as root user in the kubernetes cluster's containers
+https://github.com/jordanwilson230/kubectl-plugins
+run (pod name, first container in the pod, or specify container name
+```
+kubectl ssh -u root secureapphelm-ibm-mq-0
+```
+
 
 # DOING
 MQ cluster with native HA - three nodes.

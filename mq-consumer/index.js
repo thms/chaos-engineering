@@ -41,7 +41,7 @@ var msgId = null;
 var connectionHandle;
 var queueHandle;
 
-var waitInterval = 3; // max seconds to wait for a new message
+var waitInterval = 0; //3; // max seconds to wait for a new message
 var ok = true;
 var exitCode = 0;
 
@@ -112,7 +112,7 @@ function getCB(err, hObj, gmo,md,buf, hConn ) {
      mq.GetDone(hObj);
    } else {
      if (md.Format=="MQSTR") {
-       console.log("message <%s>", decoder.write(buf));
+       //console.log("message <%s>", decoder.write(buf));
      } else {
        console.log("binary message: " + buf);
      }
@@ -182,7 +182,7 @@ cd.ChannelName = "DEV.APP.SVRCONN";
 cd.SSLCipherSpec = "TLS_RSA_WITH_AES_128_CBC_SHA256";
 cd.SSLClientAuth = MQC.MQSCA_OPTIONAL;
 var sco = new mq.MQSCO();
-sco.KeyRepository = "/Users/thomasboltze/github/ibm-messaging/mq-helm/samples/genericresources/createcerts/application";
+sco.KeyRepository = "../mq-qmgr/certs/application";
 cno.SSLConfig = sco;
 // END SSL
 
