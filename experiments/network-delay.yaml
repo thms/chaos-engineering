@@ -8,18 +8,25 @@ spec:
   selector: # pods where to inject chaos actions
     namespaces:
       - default
-    labelSelectors:
-      'statefulset.kubernetes.io/pod-name': 'secureapphelm-ibm-mq-1'
+    pods:
+      default: # namespace of the pods
+        - secureapphelm-ibm-mq-0
+    # labelSelectors:
+    #   'statefulset.kubernetes.io/pod-name': 'secureapphelm-ibm-mq-0'
   delay:
     latency: '20ms'
   duration: '10m'
-  direction: both # latency is the same in both directions
-  target:
-    mode: all # all: network traffic in both directions is delayed
-    selector:
-      namespaces:
-        - default
-      pods:
-        default: # namespace of the pods
-          - secureapphelm-ibm-mq-0
-          - secureapphelm-ibm-mq-2
+  direction: to # latency is the same in both directions
+  externalTargets:
+    - "10.102.47.228"
+  #  - "10.111.216.222"
+  #
+  # target:
+  #   mode: all # all: network traffic in both directions is delayed
+  #   selector:
+  #     namespaces:
+  #       - default
+  #     pods:
+  #       default: # namespace of the pods
+  #         - secureapphelm-ibm-mq-0
+  #         - secureapphelm-ibm-mq-2

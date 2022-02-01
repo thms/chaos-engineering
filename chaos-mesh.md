@@ -9,4 +9,4 @@ helm install chaos-mesh chaos-mesh/chaos-mesh \
   --namespace chaos-mesh
 
 # Get the url for the dashboard
-minikube service list -n chaos-mesh
+minikube service --url -n chaos-mesh chaos-dashboard

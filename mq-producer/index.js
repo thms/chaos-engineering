@@ -80,7 +80,7 @@ cno.Options |= MQC.MQCNO_CLIENT_BINDING;
 
 // And then fill in relevant fields for the MQCD
 var cd = new mq.MQCD();
-cd.ConnectionName = "192.168.64.28(32656)";
+cd.ConnectionName = "192.168.64.28(32685)";
 cd.ChannelName = "DEV.APP.SVRCONN";
 // With SSL:
 cd.SSLCipherSpec = "TLS_RSA_WITH_AES_128_CBC_SHA256";

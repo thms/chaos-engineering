@@ -25,3 +25,9 @@ helm install chaos-mesh chaos-mesh/chaos-mesh --namespace=chaos-mesh --set dashb
 
 # kubectl apply -f ./chaos-dashboard.yaml
 # helm upgrade chaos-mesh chaos-mesh/chaos-mesh --namespace=chaos-mesh  --set dashboard.securityMode=false
+
+# Install weave scope
+# https://www.weave.works/docs/scope/latest/installing/#k8s
+kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+# open weave ui on http://localhost:4040/
+# kubectl port-forward -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 4040

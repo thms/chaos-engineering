@@ -54,7 +54,7 @@ https://livebook.manning.com/book/chaos-engineering/copyright-2020-manning-publi
 
 # To get a shell as root user in the kubernetes cluster's containers
 https://github.com/jordanwilson230/kubectl-plugins
-run (pod name, first container in the pod, or specify container name
+run pod name, first container in the pod, or specify container name
 ```
 kubectl ssh -u root secureapphelm-ibm-mq-0
 ```
