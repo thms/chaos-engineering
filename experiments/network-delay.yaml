@@ -17,10 +17,16 @@ spec:
     latency: '20ms'
   duration: '10m'
   direction: to # latency is the same in both directions
+  # queue manager uses the IP addresses of the stateful set for replication
+  # using the external targets is let us introduce delays for that
+  # it does not impact the routes via the pod's ip addresses
+  # this is visible in netcat but not in ping, becuase the routing does not
+  # allow ping through....
   externalTargets:
     - "10.102.47.228"
-  #  - "10.111.216.222"
-  #
+    - "10.111.216.222"
+  # using the normal pod selectors affects all egress traffic from the pod
+  # this is visible in ping
   # target:
   #   mode: all # all: network traffic in both directions is delayed
   #   selector:
