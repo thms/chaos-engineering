@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: chaos-engineering
+  annotations:
+    github.com/project-slug: thms/chaos-engineering
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - title: Getting Started
+      url: https://github.com/thms/chaos-engineering/README.md
+      type: Readme
+      icon: github
+spec:
+  type: component
+  lifecycle: experimental
+  owner: thms
